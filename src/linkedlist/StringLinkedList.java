@@ -63,6 +63,9 @@ public class StringLinkedList {
                         newNodePlaced = true;
                     }
                 }
+                if (!newNodePlaced) { // if we're here and haven't yet placed the node, it goes at the end
+                    current.setNext(newNode);
+                }
             }
         }
         size++;

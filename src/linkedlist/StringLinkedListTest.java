@@ -4,8 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import linkedlist.StringLinkedList.StringNode;
-
 class StringLinkedListTest {
 
     StringLinkedList s;
@@ -36,8 +34,10 @@ class StringLinkedListTest {
         s.printToConsole();
         s.add("day");
         s.printToConsole();
-        
-        
+        s.add("zebras");
+        s.printToConsole();
+        s.add("aaaaaaa");
+        s.printToConsole();
     }
 
 }
