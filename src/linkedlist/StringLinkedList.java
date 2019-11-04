@@ -96,6 +96,9 @@ public class StringLinkedList {
         }
     }
     
+    /*
+     * Prints the words of each StringNode of this list to the console.
+     */
     public void printToConsole() {
         StringNode current = first;
         System.out.print(current.getWord() + " ");
@@ -114,10 +117,17 @@ public class StringLinkedList {
         return size;
     }
     
+    /*
+     * Returns the first StringNode in this list.
+     */
     public StringNode getFirst() {
         return first;
     }
 
+    /*
+     * Sets this list's first StringNode to the given StringNode.
+     * @param first The StringNode to be set.
+     */
     public void setFirst(StringNode first) {
         this.first = first;
     }
@@ -158,9 +168,5 @@ public class StringLinkedList {
         public URLLinkedList getPagesContainingWord() {
             return pagesContainingWord;
         }
-
     }
-    
-    
-    
 }
