@@ -5,6 +5,7 @@ public class URLLinkedList {
     URLNode first;
     URLNode last;
     int size;
+    //TODO this should probably also track the number of times each word was found on each page
     
     public void add(String url) {
         URLNode node = new URLNode(url);
