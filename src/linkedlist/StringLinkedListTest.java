@@ -20,24 +20,33 @@ class StringLinkedListTest {
 
     @Test
     void test() {
-        s.add("fuck");
-        s.printToConsole();
-        s.add("the");
-        s.printToConsole();
-        s.add("police");
-        s.printToConsole();
-        s.add("all");
-        s.printToConsole();
-        s.add("day");
-        s.printToConsole();
-        s.add("every");
-        s.printToConsole();
-        s.add("day");
-        s.printToConsole();
-        s.add("zebras");
-        s.printToConsole();
-        s.add("aaaaaaa");
-        s.printToConsole();
+        s.add("fuck", "www.gay.com");
+        s.add("fuck", "www.die.com");
+        s.add("the", "www.google.com");
+        s.add("police", "www.google.com");
+        s.add("police", "www.google.com");
+        s.add("police", "www.google.com");
+        s.add("police", "www.gay.com");
+        s.add("all", "www.google.com");
+        s.add("all", "www.gay.com");
+        s.add("all", "www.gay.com");
+        s.add("day", "www.fuck.com");
+        s.add("every", "www.fuck.com");
+        s.add("day", "www.fuck.com");
+        s.add("zebras", "www.fuck.com");
+        s.add("aaaaaaa", "www.fuck.com");
+        s.add("aaaaaaa", "www.fuck.com");
+        s.add("aaaaaaa", "www.fuck.com");
+        s.add("aaaaaaa", "www.google.com");
+        s.add("aaaaaaa", "www.gay.com");
+        s.add("aaaaaaa", "www.gay.com");
+        s.add("aaaaaaa", "www.fuck.com");
+        s.add("whooaaaaaa", "www.whoa.com");
+        s.add("whooaaaaaa", "www.whoa.com");
+        s.add("whooaaaaaa", "www.whoa.com");
+        s.add("wooaaaaaah", "www.woah.com");
+        
+        System.out.println(s.toString());
     }
 
 }
