@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
+import linkedlist.StringLinkedList; 
 
 
 /*
@@ -19,20 +21,21 @@ import java.util.ArrayList;
  */
 public class WebpageDownloaderAndScraper9001 {
     
+    private StringLinkedList words;
     private ArrayList<String> urls;
     private ArrayList<String> images;
     private ArrayList<String> comments;
     private static int pagesRead = 0;
     
-    public static void getWebPage(String webpage) { 
+    public static void getWebPage(String url) { 
         
         File file = new File("page" + pagesRead + ".html");
         try { 
             file.createNewFile();
   
             // Create URL object 
-            URL url = new URL(webpage); 
-            BufferedReader readr = new BufferedReader(new InputStreamReader(url.openStream())); 
+            URL currentPage = new URL(url); 
+            BufferedReader readr = new BufferedReader(new InputStreamReader(currentPage.openStream())); 
   
             // Enter filename in which you want to download 
             BufferedWriter writer =  
