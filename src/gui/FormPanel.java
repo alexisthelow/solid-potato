@@ -64,14 +64,6 @@ public class FormPanel extends JPanel {
             
         });
         
-        searchListButton.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO -- get terms from list, put in array, put in form event, send to formlistener
-            }
-        });
-        
         layoutComponents();
         
     }

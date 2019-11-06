@@ -18,26 +18,23 @@ public class StringLinkedList {
      * Adds specified word to a new StringNode, which is added to the list alphabetically.
      * @param word The word to be added to the StringNode.
      */
-    public void add(String word, String url) {
+    public void add(String word) {
         
         // don't need to add this word if it's a stop word
         for (int i = 0; i < StopWords.list.length; i++) {
-            if (word.equalsIgnoreCase(StopWords.list[i])) return;
+            if (word.equals(StopWords.list[i])) return;
         }
         
         // don't need to add this word if it's already in here
         StringNode check = locate(word);
         if (check != null) {
-            check.getPagesContainingWord().add(url);
             return;
         }
         
         // not a stop word, not present--need to add it
         StringNode newNode = new StringNode(word, new URLLinkedList());
-        newNode.getPagesContainingWord().add(url);
         if (first == null) { // if first is null, there's nothing in the list
             first = newNode; // set first to this new node
-            newNode.getPagesContainingWord().add(url);
         }
         else { // first isn't null, so we want to find the correct place to put this new node
             StringNode current = first;
@@ -100,6 +97,20 @@ public class StringLinkedList {
     }
     
     /*
+     * Prints the words of each StringNode of this list to the console.
+     */
+    public void printToConsole() {
+        StringNode current = first;
+        System.out.print(current.getWord() + " ");
+        while (current.hasNext()) {
+            current = current.getNext();
+            System.out.print(current.getWord() + " ");
+            
+        }
+        System.out.println();
+    }
+    
+    /*
      * Returns the size of this StringLinkedList.
      */
     public int size() {
@@ -119,19 +130,6 @@ public class StringLinkedList {
      */
     public void setFirst(StringNode first) {
         this.first = first;
-    }
-    
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        StringNode current = this.first;
-        int counter = 0;
-        sb.append("Size: " + this.size() + "\n");
-        sb.append("Node #" + counter++ + ": " + current.toString());
-        while(current.hasNext()) {
-            current = current.getNext();
-            sb.append("Node #" + counter++ + ": " + current.toString());
-        }
-        return sb.toString();
     }
 
     /*
@@ -169,14 +167,6 @@ public class StringLinkedList {
 
         public URLLinkedList getPagesContainingWord() {
             return pagesContainingWord;
-        }
-        
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Word: " + this.getWord() + "\n");
-            sb.append(this.getPagesContainingWord().toString());
-            sb.append("\n");
-            return sb.toString();
         }
     }
 }
