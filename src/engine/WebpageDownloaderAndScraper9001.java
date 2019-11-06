@@ -35,8 +35,7 @@ public class WebpageDownloaderAndScraper9001 {
             BufferedReader readr = new BufferedReader(new InputStreamReader(url.openStream())); 
   
             // Enter filename in which you want to download 
-            BufferedWriter writer =  
-              new BufferedWriter(new FileWriter(file)); 
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file)); 
               
             // read each line from stream till end 
             String line; 
