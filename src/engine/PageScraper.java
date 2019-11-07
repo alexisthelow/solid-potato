@@ -83,9 +83,9 @@ public class PageScraper {
             text = text.replaceAll("-", " ");
             text = text.replaceAll("\\d", "");
             String[] textArray = text.split(" ");
-            for (String string : textArray) {
-                
-            }
+//            for (String string : textArray) {
+//                words.add(word);
+//            }
             for (Element element : links) {
                 System.out.println(webpage + element.attr("href"));
             }
