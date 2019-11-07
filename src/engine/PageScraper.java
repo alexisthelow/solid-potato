@@ -10,10 +10,10 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import linkedlist.StringLinkedList;
@@ -83,13 +83,13 @@ public class PageScraper {
             text = text.replaceAll("-", " ");
             text = text.replaceAll("\\d", "");
             String[] textArray = text.split(" ");
-//            for (String string : textArray) {
-//                words.add(word);
-//            }
-            for (Element element : links) {
-                System.out.println(webpage + element.attr("href"));
+            textArray = removeElements(textArray, "");
+            for (String word : textArray) {
+                words.add(word, webpage);
             }
-            System.out.println(text);
+//            for (Element element : links) {
+//                System.out.println(webpage + element.attr("href"));
+//            }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -97,12 +97,66 @@ public class PageScraper {
         
     } 
     
+    /*
+     * Removes all elements matching key from given array.
+     * Shamelessly cribbed from GeeksForGeeks.com.
+     * @param arr The array from which elements are to be removed.
+     * @param key The key defining the elements to be removed.
+     */
+    public static String[] removeElements(String[] arr, String key) 
+    { 
+          // Move all other elements to beginning  
+          int index = 0; 
+          for (int i=0; i<arr.length; i++) 
+             if (!arr[i].equalsIgnoreCase("")) 
+                arr[index++] = arr[i]; 
+  
+         // Create a copy of arr[]  
+         return Arrays.copyOf(arr, index); 
+    } 
+    
+    /*
+     * Resets lists of things to empty lists.
+     */
     public static void clearData() {
         words = new StringLinkedList();
         urls = new ArrayList<>();
         comments = new ArrayList<>();
         pagesRead = 0;
     }
+    
+    public static StringLinkedList getWords() {
+        return words;
+    }
+
+    public static void setWords(StringLinkedList words) {
+        PageScraper.words = words;
+    }
+
+    public static ArrayList<String> getUrls() {
+        return urls;
+    }
+
+    public static void setUrls(ArrayList<String> urls) {
+        PageScraper.urls = urls;
+    }
+
+    public static ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public static void setComments(ArrayList<String> comments) {
+        PageScraper.comments = comments;
+    }
+
+    public static int getPagesRead() {
+        return pagesRead;
+    }
+
+    public static void setPagesRead(int pagesRead) {
+        PageScraper.pagesRead = pagesRead;
+    }
+
     /*
      * For testing. Delete before release.
      */
