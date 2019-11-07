@@ -1,6 +1,6 @@
 package linkedlist;
 
-import ignore.StopWords;
+import settings.Settings;
 
 public class StringLinkedList {
     
@@ -21,8 +21,8 @@ public class StringLinkedList {
     public void add(String word, String url) {
         
         // don't need to add this word if it's a stop word
-        for (int i = 0; i < StopWords.list.length; i++) {
-            if (word.equalsIgnoreCase(StopWords.list[i])) return;
+        for (String stopWord : Settings.getStopWords()) {
+            if (word.equalsIgnoreCase(stopWord)) return;
         }
         
         // don't need to add this word if it's already in here
