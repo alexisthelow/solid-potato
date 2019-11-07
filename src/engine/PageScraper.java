@@ -9,7 +9,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import linkedlist.StringLinkedList;
 
 
 /*
@@ -17,15 +24,14 @@ import java.util.ArrayList;
  * Part of the code was taken from code written by Nishu Aggarwal for GeeksForGeeks.org.
  * The rest of it was written by Alexis Low.
  */
-public class WebpageDownloaderAndScraper9001 {
+public class PageScraper {
     
-    private ArrayList<String> urls;
-    private ArrayList<String> images;
-    private ArrayList<String> comments;
+    private static StringLinkedList words = new StringLinkedList();
+    private static ArrayList<String> urls = new ArrayList<>();
+    private static ArrayList<String> comments = new ArrayList<>();
     private static int pagesRead = 0;
     
     public static void getWebPage(String webpage) { 
-        
         File file = new File("page" + pagesRead + ".html");
         try { 
             file.createNewFile();
@@ -69,10 +75,38 @@ public class WebpageDownloaderAndScraper9001 {
             System.out.println("IOException raised"); 
             System.out.println(ie.getMessage());
         } 
+        try {
+            Document doc = Jsoup.parse(file, "utf-8");
+            Elements links = doc.select("a[href]");
+            String text = doc.body().text();
+            text = text.replaceAll("[^\\w\\s-]", "");
+            text = text.replaceAll("-", " ");
+            text = text.replaceAll("\\d", "");
+            String[] textArray = text.split(" ");
+            for (String string : textArray) {
+                
+            }
+            for (Element element : links) {
+                System.out.println(webpage + element.attr("href"));
+            }
+            System.out.println(text);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     } 
-    public static void main(String args[]) 
-        throws IOException 
-    { 
+    
+    public static void clearData() {
+        words = new StringLinkedList();
+        urls = new ArrayList<>();
+        comments = new ArrayList<>();
+        pagesRead = 0;
+    }
+    /*
+     * For testing. Delete before release.
+     */
+    public static void main(String args[]) throws IOException { 
         String url = "http://www.chinese-poems.com/"; 
         getWebPage(url); 
     } 
