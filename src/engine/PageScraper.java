@@ -31,7 +31,7 @@ public class PageScraper {
     private static ArrayList<String> comments = new ArrayList<>();
     private static int pagesRead = 0;
     
-    public static void getWebPage(String webpage) { 
+    public static void scrapePage(String webpage) { 
         File file = new File("page" + pagesRead + ".html");
         try { 
             file.createNewFile();
@@ -53,32 +53,23 @@ public class PageScraper {
             readr.close(); 
             writer.close(); 
             System.out.println("Successfully Downloaded."); 
-            
-            BufferedReader fileReader = new BufferedReader(new FileReader(file));
-            while((line = fileReader.readLine()) != null) {
-                // if the line contains a link, put it in links
-                // if the line contains a comment, put it in comments
-                // if the line contains words:
-                    // check to see if the word already has a node in the StringLinkedList
-                        // if it does, does that StringNode's associated UrlLinkedList already have the current URL?
-                            // if it does, increment the counter at that UrlNode
-                            // if it does not, add it and set its counter to 1
-                        // if it does not, add the word to the StringLinkedList, add the URL to the UrlLinkedList,
-            }
         } 
-  
         // Exceptions 
         catch (MalformedURLException mue) { 
-            System.out.println("Malformed URL Exception raised"); 
+            System.out.println(mue.getMessage());
         } 
         catch (IOException ie) { 
-            System.out.println("IOException raised"); 
             System.out.println(ie.getMessage());
         } 
+        // finished reading page
+        
+        // scrape downloaded page
         try {
             Document doc = Jsoup.parse(file, "utf-8");
-            Elements links = doc.select("a[href]");
+            
+            // scrape text
             String text = doc.body().text();
+            // remove all the garbage
             text = text.replaceAll("[^\\w\\s-]", "");
             text = text.replaceAll("-", " ");
             text = text.replaceAll("\\d", "");
@@ -87,6 +78,9 @@ public class PageScraper {
             for (String word : textArray) {
                 words.add(word, webpage);
             }
+            
+            // scrape links
+//            Elements links = doc.select("a[href]");
 //            for (Element element : links) {
 //                System.out.println(webpage + element.attr("href"));
 //            }
@@ -94,6 +88,12 @@ public class PageScraper {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        // finished scraping
+        
+        // move on to the next set of pages
+        
+        
+        
         
     } 
     
@@ -162,7 +162,7 @@ public class PageScraper {
      */
     public static void main(String args[]) throws IOException { 
         String url = "http://www.chinese-poems.com/"; 
-        getWebPage(url); 
+        scrapePage(url); 
     } 
 
 }

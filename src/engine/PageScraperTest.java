@@ -18,7 +18,7 @@ public class PageScraperTest {
 
     @Test
     public void test() {
-        PageScraper.getWebPage("http://www.chinese-poems.com/");
+        PageScraper.scrapePage("http://www.chinese-poems.com/");
         StringLinkedList words = PageScraper.getWords();
         System.out.println(words.toString());
         
