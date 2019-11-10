@@ -5,9 +5,10 @@ import java.util.Arrays;
 
 public final class Settings {
     
-    private static ScrapeType scrapeType;               // page depth or same site
-    private static int maxPageDepth;                    // how deep to follow links
-    private static String[] defaultList = new String[]{  // default list of words to ignore
+    private static ScrapeType scrapeType;                   // what kind of scrape
+    private static int maxPageDepth;                        // how deep to follow links (for ScrapeType.PAGE_DEPTH) 
+    private static int maxPagesRead;                        // how many pages to read (for ScrapeType.TOTAL_PAGES)
+    private static String[] defaultList = new String[]{     // default list of words to ignore
             "a", "an", "and", "at", "if", 
             "is", "it", "in", "of", "on", 
             "or", "to", "the", "this", "that", 
@@ -47,6 +48,14 @@ public final class Settings {
 
     public static void setStopWords(ArrayList<String> stopWords) {
         Settings.stopWords = stopWords;
+    }
+    
+    public static void addStopWord(String word) {
+        Settings.stopWords.add(word);
+    }
+    
+    public static void removeStopWord(String word) {
+        Settings.stopWords.remove(word);
     }
     
 }
