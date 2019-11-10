@@ -32,7 +32,6 @@ public class PageScraper {
     private static ArrayList<String> urls = new ArrayList<>();
     private static ArrayList<String> comments = new ArrayList<>();
     private static int pagesRead = 0;
-    private static int pageDepth = 0;
     
     public static void scrapePage(String webpage) { 
         File file = new File("page" + pagesRead + ".html");
@@ -96,9 +95,6 @@ public class PageScraper {
         
         // move on to the next set of pages
         if (Settings.getScrapeType() == ScrapeType.TOTAL_PAGES) {
-            
-        }
-        else if (Settings.getScrapeType() == ScrapeType.PAGE_DEPTH) {
             
         }
         else if (Settings.getScrapeType() == ScrapeType.SAME_SITE) {

@@ -6,7 +6,6 @@ import java.util.Arrays;
 public final class Settings {
     
     private static ScrapeType scrapeType;                   // what kind of scrape
-    private static int maxPageDepth;                        // how deep to follow links (for ScrapeType.PAGE_DEPTH) 
     private static int maxPagesRead;                        // how many pages to read (for ScrapeType.TOTAL_PAGES)
     private static String[] defaultList = new String[]{     // default list of words to ignore
             "a", "an", "and", "at", "if", 
@@ -32,14 +31,6 @@ public final class Settings {
 
     public static void setScrapeType(ScrapeType scrapeType) {
         Settings.scrapeType = scrapeType;
-    }
-
-    public static int getPageDepth() {
-        return maxPageDepth;
-    }
-
-    public static void setPageDepth(int pageDepth) {
-        Settings.maxPageDepth = pageDepth;
     }
 
     public static ArrayList<String> getStopWords() {
