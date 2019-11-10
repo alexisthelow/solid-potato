@@ -3,7 +3,6 @@ package engine;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,9 +13,12 @@ import java.util.Arrays;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import linkedlist.StringLinkedList;
+import settings.ScrapeType;
+import settings.Settings;
 
 
 /*
@@ -30,6 +32,7 @@ public class PageScraper {
     private static ArrayList<String> urls = new ArrayList<>();
     private static ArrayList<String> comments = new ArrayList<>();
     private static int pagesRead = 0;
+    private static int pageDepth = 0;
     
     public static void scrapePage(String webpage) { 
         File file = new File("page" + pagesRead + ".html");
@@ -80,18 +83,27 @@ public class PageScraper {
             }
             
             // scrape links
-//            Elements links = doc.select("a[href]");
-//            for (Element element : links) {
-//                System.out.println(webpage + element.attr("href"));
-//            }
+            Elements links = doc.select("a[href]");
+            for (Element element : links) {
+                System.out.println(webpage + element.attr("href"));
+            }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        pagesRead++;
         // finished scraping
         
         // move on to the next set of pages
-        
+        if (Settings.getScrapeType() == ScrapeType.TOTAL_PAGES) {
+            
+        }
+        else if (Settings.getScrapeType() == ScrapeType.PAGE_DEPTH) {
+            
+        }
+        else if (Settings.getScrapeType() == ScrapeType.SAME_SITE) {
+            
+        }
         
         
         
@@ -99,20 +111,19 @@ public class PageScraper {
     
     /*
      * Removes all elements matching key from given array.
-     * Shamelessly cribbed from GeeksForGeeks.com.
+     * Based on code from GeeksForGeeks.com.
      * @param arr The array from which elements are to be removed.
      * @param key The key defining the elements to be removed.
      */
-    public static String[] removeElements(String[] arr, String key) 
+    public static String[] removeElements(String[] array, String key) 
     { 
-          // Move all other elements to beginning  
           int index = 0; 
-          for (int i=0; i<arr.length; i++) 
-             if (!arr[i].equalsIgnoreCase("")) 
-                arr[index++] = arr[i]; 
+          for (int i = 0; i < array.length; i++) 
+             if (!array[i].equalsIgnoreCase(""))    // if the index isn't an empty string
+                 array[index++] = array[i];         // move it to the front 
   
          // Create a copy of arr[]  
-         return Arrays.copyOf(arr, index); 
+         return Arrays.copyOf(array, index); 
     } 
     
     /*
@@ -120,8 +131,8 @@ public class PageScraper {
      */
     public static void clearData() {
         words = new StringLinkedList();
-        urls = new ArrayList<>();
-        comments = new ArrayList<>();
+//        urls = new ArrayList<>();
+//        comments = new ArrayList<>();
         pagesRead = 0;
     }
     
