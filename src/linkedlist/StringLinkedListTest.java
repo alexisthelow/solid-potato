@@ -20,27 +20,27 @@ class StringLinkedListTest {
 
     @Test
     void test() {
-        s.add("fuck", "www.gay.com");
-        s.add("fuck", "www.die.com");
+        s.add("hi", "www.omg.com");
+        s.add("hi", "www.sandwich.com");
         s.add("the", "www.google.com");
-        s.add("police", "www.google.com");
-        s.add("police", "www.google.com");
-        s.add("police", "www.google.com");
-        s.add("police", "www.gay.com");
+        s.add("omg", "www.google.com");
+        s.add("omg", "www.google.com");
+        s.add("omg", "www.google.com");
+        s.add("omg", "www.omg.com");
         s.add("all", "www.google.com");
-        s.add("all", "www.gay.com");
-        s.add("all", "www.gay.com");
-        s.add("day", "www.fuck.com");
-        s.add("every", "www.fuck.com");
-        s.add("day", "www.fuck.com");
-        s.add("zebras", "www.fuck.com");
-        s.add("aaaaaaa", "www.fuck.com");
-        s.add("aaaaaaa", "www.fuck.com");
-        s.add("aaaaaaa", "www.fuck.com");
+        s.add("all", "www.omg.com");
+        s.add("all", "www.omg.com");
+        s.add("day", "www.omg.com");
+        s.add("every", "www.omg.com");
+        s.add("day", "www.omg.com");
+        s.add("zebras", "www.omg.com");
+        s.add("aaaaaaa", "www.omg.com");
+        s.add("aaaaaaa", "www.omg.com");
+        s.add("aaaaaaa", "www.omg.com");
         s.add("aaaaaaa", "www.google.com");
-        s.add("aaaaaaa", "www.gay.com");
-        s.add("aaaaaaa", "www.gay.com");
-        s.add("aaaaaaa", "www.fuck.com");
+        s.add("aaaaaaa", "www.sandwich.com");
+        s.add("aaaaaaa", "www.sandwich.com");
+        s.add("aaaaaaa", "www.omg.com");
         s.add("whooaaaaaa", "www.whoa.com");
         s.add("whooaaaaaa", "www.whoa.com");
         s.add("whooaaaaaa", "www.whoa.com");
