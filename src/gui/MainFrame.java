@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
@@ -58,16 +59,47 @@ public class MainFrame extends JFrame {
                     textPanel.clearText();
                     
                     String[] terms = e.getSearchTerms();
-                    // TODO need to handle OR cases
                     
+                    // check for OR
+                    boolean orFound = false;
                     for (String term : terms) {
-                        
-                        StringNode node = ps.getWords().locate(term);
-                        if (node != null) {
-                            textPanel.appendText(node.toString());
+                        if (term.equals("OR")) {
+                            orFound = true;
                         }
-                        
                     }
+//                    if (orFound) { // deal with OR terms
+//                        LinkedList<String> orTerms = new LinkedList<>();
+//                        LinkedList<String> andTerms = new LinkedList<>();
+//                        
+//                        for (int i = 0; i < terms.length; i++) {
+//                            if (terms[i] != null && terms[i].equals("OR")) {
+//                                // grab previous term, grab next term, set both and OR to null
+//                                terms[i] = null;
+//                                if (i - 1 >= 0) { // don't look beyond beginning of array
+//                                    orTerms.add(terms[i - 1]);
+//                                    terms[i - 1] = null;
+//                                }
+//                                if (i + 1 <= terms.length - 1) { // don't look beyond end of array
+//                                    orTerms.add(terms[i + 1]);
+//                                    terms[i + 1] = null;
+//                                }
+//                            } // extracted OR terms, rest of terms can go into AND array
+//                        }
+//                        for (int i = 0; i < terms.length; i++) {
+//                            if (terms[i] != null) {
+//                                andTerms.add(terms[i]);
+//                            }
+//                        }
+//                    }
+//                    else { // proceed as normal
+                        for (String term : terms) {
+                            StringNode node = ps.getWords().locate(term);
+                            if (node != null) {
+                                textPanel.appendText(node.toString());
+                            }
+                        }
+//                    }
+                    
                     
                     
                 }
@@ -83,5 +115,9 @@ public class MainFrame extends JFrame {
         // gogogo
         setVisible(true);
     }
+    
+//    public LinkedList<StringNode> getOrSearchResults(LinkedList<String> orTerms, LinkedList<String> andTerms) {
+//        
+//    }
     
 }
