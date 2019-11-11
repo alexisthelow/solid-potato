@@ -4,15 +4,20 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import engine.PageScraper;
 import gui.events.FormEvent;
 import gui.listeners.FormListener;
 import gui.listeners.UrlListener;
 
 public class MainFrame extends JFrame {
 
+    // frame components
     private Toolbar toolbar;
     private TextPanel textPanel;
     private FormPanel formPanel;
+    
+    // engine components
+    private PageScraper ps;
     
     public MainFrame() {
         
@@ -35,6 +40,12 @@ public class MainFrame extends JFrame {
             public void urlEmitted(String url) {
                 System.out.println("URL entered into toolbar");
                 System.out.println(url);
+                ps = new PageScraper();
+                
+                ps.scrapePage(url);
+                textPanel.appendText(ps.getWords().toString());
+                
+                
             }
             
         });
@@ -44,8 +55,9 @@ public class MainFrame extends JFrame {
             @Override
             public void formEventOccurred(FormEvent e) {
                 System.out.println("Form event occurred");
-                for (String term : e.getSearchTerms()) {
-                    System.out.println(term);
+                
+                if (ps != null) { // a scrape has occurred
+                    
                 }
             }
             
