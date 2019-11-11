@@ -6,7 +6,7 @@ import java.util.Arrays;
 public final class Settings {
     
     private static ScrapeType scrapeType;                   // what kind of scrape
-    private static int maxPagesRead;                        // how many pages to read (for ScrapeType.TOTAL_PAGES)
+    private static int maxPagesRead;                        // how many pages to read (for ScrapeType.TOTAL_PAGES) 
     private static String[] defaultList = new String[]{     // default list of words to ignore
             "a", "an", "and", "at", "if", 
             "is", "it", "in", "of", "on", 
@@ -47,6 +47,25 @@ public final class Settings {
     
     public static void removeStopWord(String word) {
         Settings.stopWords.remove(word);
+    }
+
+    public static int getMaxPagesRead() {
+        return maxPagesRead;
+    }
+
+    public static void setMaxPagesRead(int maxPagesRead) {
+        if (maxPagesRead <= 0) { 
+            Settings.maxPagesRead = 1; // minimum of 1, or else why are you even using this app
+        }
+        Settings.maxPagesRead = maxPagesRead;
+    }
+
+    public static String[] getDefaultList() {
+        return defaultList;
+    }
+
+    public static void setDefaultList(String[] defaultList) {
+        Settings.defaultList = defaultList;
     }
     
 }
