@@ -4,9 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import linkedlist.StringLinkedList;
-
 public class PageScraperTest {
+    
+    // TODO rewrite this to be an actual test case
 
     @Before
     public void setUp() throws Exception {
@@ -18,9 +18,9 @@ public class PageScraperTest {
 
     @Test
     public void test() {
-        PageScraper.scrapePage("http://www.chinese-poems.com/");
-        StringLinkedList words = PageScraper.getWords();
-        System.out.println(words.toString());
+//        PageScraper.scrapePage("http://www.chinese-poems.com/");
+//        StringLinkedList words = PageScraper.getWords();
+//        System.out.println(words.toString());
         
     }
 
