@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,18 +23,20 @@ import settings.Settings;
 
 
 /*
- * This class is for downloading webpages and extracting a variety of useful information.
+ * This class is for downloading webpages and extracting words.
  * Part of the code was taken from code written by Nishu Aggarwal for GeeksForGeeks.org.
  * The rest of it was written by Alexis Low.
  */
 public class PageScraper {
     
-    private static StringLinkedList words = new StringLinkedList();
-    private static ArrayList<String> urls = new ArrayList<>();
-    private static ArrayList<String> comments = new ArrayList<>();
+    private static StringLinkedList words = new StringLinkedList(); 
+    private static LinkedBlockingDeque<String> pagesToVisit = new LinkedBlockingDeque<>();
+    private static LinkedList<String> visitedPages = new LinkedList<String>();
     private static int pagesRead = 0;
+    private static String baseUrl = null;
     
     public static void scrapePage(String webpage) { 
+        if (baseUrl == null) baseUrl = webpage; // need to keep track of this 
         File file = new File("page" + pagesRead + ".html");
         try { 
             file.createNewFile();
@@ -81,24 +84,36 @@ public class PageScraper {
                 words.add(word, webpage);
             }
             
-            // scrape links
+            // scrape links and queue up to visit
             Elements links = doc.select("a[href]");
-            for (Element element : links) {
-                System.out.println(webpage + element.attr("href"));
+            for (Element link : links) {
+                String absUrl = link.absUrl("href");
+                if (!visitedPages.contains(absUrl)) {
+                    pagesToVisit.add(absUrl);
+                }
             }
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        // update variables
         pagesRead++;
-        // finished scraping
+        visitedPages.add(webpage);
+        file.deleteOnExit();
+        // finished scraping, move on to the next set of pages
         
-        // move on to the next set of pages
+        // limiting by total pages
         if (Settings.getScrapeType() == ScrapeType.TOTAL_PAGES) {
-            
+            for (String link : pagesToVisit) {
+                if (pagesRead < Settings.getMaxPagesRead() && !visitedPages.contains(link)) {
+                    scrapePage(link);
+                }
+            }
         }
+        // limiting by same site
         else if (Settings.getScrapeType() == ScrapeType.SAME_SITE) {
-            
+//            for ()
         }
         
         
@@ -127,8 +142,6 @@ public class PageScraper {
      */
     public static void clearData() {
         words = new StringLinkedList();
-//        urls = new ArrayList<>();
-//        comments = new ArrayList<>();
         pagesRead = 0;
     }
     
@@ -138,22 +151,6 @@ public class PageScraper {
 
     public static void setWords(StringLinkedList words) {
         PageScraper.words = words;
-    }
-
-    public static ArrayList<String> getUrls() {
-        return urls;
-    }
-
-    public static void setUrls(ArrayList<String> urls) {
-        PageScraper.urls = urls;
-    }
-
-    public static ArrayList<String> getComments() {
-        return comments;
-    }
-
-    public static void setComments(ArrayList<String> comments) {
-        PageScraper.comments = comments;
     }
 
     public static int getPagesRead() {
@@ -168,8 +165,11 @@ public class PageScraper {
      * For testing. Delete before release.
      */
     public static void main(String args[]) throws IOException { 
-        String url = "http://www.chinese-poems.com/"; 
+        Settings.setScrapeType(ScrapeType.TOTAL_PAGES);
+        Settings.setMaxPagesRead(30);
+        String url = "http://www.ashidakim.com/zenkoans/zenindex.html"; 
         scrapePage(url); 
+        System.out.println(PageScraper.getWords().toString());
     } 
 
 }
