@@ -205,12 +205,12 @@ public class PageScraper {
     /*
      * For testing. Delete before release.
      */
-    public static void main(String args[]) throws IOException { 
-        Settings.setScrapeType(ScrapeType.SAME_SITE);
-        Settings.setMaxPagesRead(30);
-        String url = "http://www.ashidakim.com/zenkoans/zenindex.html"; 
-        scrapePage(url); 
-        System.out.println(PageScraper.getWords().toString());
-    } 
+//    public static void main(String args[]) throws IOException { 
+//        Settings.setScrapeType(ScrapeType.SAME_SITE);
+//        Settings.setMaxPagesRead(30);
+//        String url = "http://www.ashidakim.com/zenkoans/zenindex.html"; 
+//        scrapePage(url); 
+//        System.out.println(PageScraper.getWords().toString());
+//    } 
 
 }
