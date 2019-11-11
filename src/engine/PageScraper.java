@@ -29,13 +29,25 @@ import settings.Settings;
  */
 public class PageScraper {
     
-    private static StringLinkedList words = new StringLinkedList(); 
-    private static LinkedBlockingDeque<String> pagesToVisit = new LinkedBlockingDeque<>();
-    private static LinkedList<String> visitedPages = new LinkedList<String>();
-    private static int pagesRead = 0;
-    private static String baseUrl = null;
+    private StringLinkedList words; 
+    private LinkedBlockingDeque<String> pagesToVisit;
+    private LinkedList<String> visitedPages;
+    private int pagesRead = 0;
+    private String baseUrl = null;
     
-    public static void scrapePage(String webpage) { 
+    public PageScraper() {
+        super();
+        
+        this.words = new StringLinkedList();
+        this.pagesToVisit = new LinkedBlockingDeque<>();
+        this.visitedPages = new LinkedList<>();
+        this.pagesRead = 0;
+        this.baseUrl = null;
+    }
+    
+    
+
+    public void scrapePage(String webpage) { 
         if (baseUrl == null) baseUrl = webpage; // need to keep track of this 
         File file = new File("page" + pagesRead + ".html");
         System.out.println("Scraping " + webpage + "...");
@@ -145,49 +157,49 @@ public class PageScraper {
     /*
      * Resets lists of things to empty lists.
      */
-    public static void clearData() {
+    public void clearData() {
         words = new StringLinkedList();
         pagesRead = 0;
     }
     
-    public static StringLinkedList getWords() {
+    public StringLinkedList getWords() {
         return words;
     }
 
-    public static void setWords(StringLinkedList words) {
-        PageScraper.words = words;
+    public void setWords(StringLinkedList words) {
+        this.words = words;
     }
 
-    public static int getPagesRead() {
+    public int getPagesRead() {
         return pagesRead;
     }
 
-    public static void setPagesRead(int pagesRead) {
-        PageScraper.pagesRead = pagesRead;
+    public void setPagesRead(int pagesRead) {
+        this.pagesRead = pagesRead;
     }
     
-    public static LinkedBlockingDeque<String> getPagesToVisit() {
+    public LinkedBlockingDeque<String> getPagesToVisit() {
         return pagesToVisit;
     }
 
-    public static void setPagesToVisit(LinkedBlockingDeque<String> pagesToVisit) {
-        PageScraper.pagesToVisit = pagesToVisit;
+    public void setPagesToVisit(LinkedBlockingDeque<String> pagesToVisit) {
+        this.pagesToVisit = pagesToVisit;
     }
 
-    public static LinkedList<String> getVisitedPages() {
+    public LinkedList<String> getVisitedPages() {
         return visitedPages;
     }
 
-    public static void setVisitedPages(LinkedList<String> visitedPages) {
-        PageScraper.visitedPages = visitedPages;
+    public void setVisitedPages(LinkedList<String> visitedPages) {
+        this.visitedPages = visitedPages;
     }
 
-    public static String getBaseUrl() {
+    public String getBaseUrl() {
         return baseUrl;
     }
 
-    public static void setBaseUrl(String baseUrl) {
-        PageScraper.baseUrl = baseUrl;
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     /*
