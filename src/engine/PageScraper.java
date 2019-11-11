@@ -38,6 +38,7 @@ public class PageScraper {
     public static void scrapePage(String webpage) { 
         if (baseUrl == null) baseUrl = webpage; // need to keep track of this 
         File file = new File("page" + pagesRead + ".html");
+        System.out.println("Scraping " + webpage + "...");
         try { 
             file.createNewFile();
   
@@ -57,7 +58,7 @@ public class PageScraper {
   
             readr.close(); 
             writer.close(); 
-            System.out.println("Successfully Downloaded."); 
+            System.out.println("Success."); 
         } 
         // Exceptions 
         catch (MalformedURLException mue) { 
@@ -85,10 +86,10 @@ public class PageScraper {
             }
             
             // scrape links and queue up to visit
-            Elements links = doc.select("a[href]");
+            Elements links = doc.select("a");
             for (Element link : links) {
                 String absUrl = link.absUrl("href");
-                if (!visitedPages.contains(absUrl)) {
+                if (!visitedPages.contains(absUrl) && !absUrl.equalsIgnoreCase("")) {
                     pagesToVisit.add(absUrl);
                 }
             }
@@ -113,7 +114,11 @@ public class PageScraper {
         }
         // limiting by same site
         else if (Settings.getScrapeType() == ScrapeType.SAME_SITE) {
-//            for ()
+            for (String link : pagesToVisit) {
+                if (link.startsWith(baseUrl) && !visitedPages.contains(link)) {
+                    scrapePage(link);
+                }
+            }
         }
         
         
@@ -160,12 +165,36 @@ public class PageScraper {
     public static void setPagesRead(int pagesRead) {
         PageScraper.pagesRead = pagesRead;
     }
+    
+    public static LinkedBlockingDeque<String> getPagesToVisit() {
+        return pagesToVisit;
+    }
+
+    public static void setPagesToVisit(LinkedBlockingDeque<String> pagesToVisit) {
+        PageScraper.pagesToVisit = pagesToVisit;
+    }
+
+    public static LinkedList<String> getVisitedPages() {
+        return visitedPages;
+    }
+
+    public static void setVisitedPages(LinkedList<String> visitedPages) {
+        PageScraper.visitedPages = visitedPages;
+    }
+
+    public static String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public static void setBaseUrl(String baseUrl) {
+        PageScraper.baseUrl = baseUrl;
+    }
 
     /*
      * For testing. Delete before release.
      */
     public static void main(String args[]) throws IOException { 
-        Settings.setScrapeType(ScrapeType.TOTAL_PAGES);
+        Settings.setScrapeType(ScrapeType.SAME_SITE);
         Settings.setMaxPagesRead(30);
         String url = "http://www.ashidakim.com/zenkoans/zenindex.html"; 
         scrapePage(url); 
