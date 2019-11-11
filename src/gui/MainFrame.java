@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import gui.events.FormEvent;
+import gui.listeners.FormListener;
 import gui.listeners.UrlListener;
 
 public class MainFrame extends JFrame {
@@ -31,8 +33,20 @@ public class MainFrame extends JFrame {
 
             @Override
             public void urlEmitted(String url) {
-                // TODO Auto-generated method stub
-                
+                System.out.println("URL entered into toolbar");
+                System.out.println(url);
+            }
+            
+        });
+        
+        formPanel.setFormListener(new FormListener() {
+
+            @Override
+            public void formEventOccurred(FormEvent e) {
+                System.out.println("Form event occurred");
+                for (String term : e.getSearchTerms()) {
+                    System.out.println(term);
+                }
             }
             
         });
