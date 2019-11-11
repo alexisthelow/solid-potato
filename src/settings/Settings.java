@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 public final class Settings {
     
-    private static ScrapeType scrapeType;                   // what kind of scrape
-    private static int maxPagesRead;                        // how many pages to read (for ScrapeType.TOTAL_PAGES) 
-    private static String[] defaultList = new String[]{     // default list of words to ignore
+    private static ScrapeType scrapeType = ScrapeType.TOTAL_PAGES;  // what kind of scrape 
+    private static int maxPagesRead = 30;                           // how many pages to read (for ScrapeType.TOTAL_PAGES) 
+    private static String[] defaultList = new String[]{             // default list of words to ignore
             "a", "an", "and", "at", "if", 
             "is", "it", "in", "of", "on", 
             "or", "to", "the", "this", "that", 
