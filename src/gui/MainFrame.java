@@ -8,6 +8,7 @@ import engine.PageScraper;
 import gui.events.FormEvent;
 import gui.listeners.FormListener;
 import gui.listeners.UrlListener;
+import linkedlist.StringLinkedList.StringNode;
 
 public class MainFrame extends JFrame {
 
@@ -38,14 +39,10 @@ public class MainFrame extends JFrame {
 
             @Override
             public void urlEmitted(String url) {
-                System.out.println("URL entered into toolbar");
-                System.out.println(url);
                 ps = new PageScraper();
                 
                 ps.scrapePage(url);
                 textPanel.appendText(ps.getWords().toString());
-                
-                
             }
             
         });
@@ -57,6 +54,21 @@ public class MainFrame extends JFrame {
                 System.out.println("Form event occurred");
                 
                 if (ps != null) { // a scrape has occurred
+                    // empty the text area 
+                    textPanel.clearText();
+                    
+                    String[] terms = e.getSearchTerms();
+                    // TODO need to handle OR cases
+                    
+                    for (String term : terms) {
+                        
+                        StringNode node = ps.getWords().locate(term);
+                        if (node != null) {
+                            textPanel.appendText(node.toString());
+                        }
+                        
+                    }
+                    
                     
                 }
             }
